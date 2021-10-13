@@ -6,6 +6,7 @@ import { HttpExceptionFilter } from 'src/service/http-exception.filter';
 import { APP_FILTER } from '@nestjs/core';
 import { CqrsModule } from '@nestjs/cqrs';
 import { HealthModule } from './health.module';
+import { UsersModule } from './users.module';
 
 @Module({
   imports: [
@@ -30,6 +31,7 @@ import { HealthModule } from './health.module';
     }),
     HealthModule,
     CqrsModule,
+    UsersModule,
   ],
   controllers: [],
   providers: [

@@ -1,6 +1,6 @@
 import { Controller, Get } from '@nestjs/common';
 import { QueryBus } from '@nestjs/cqrs';
-import { ApiOkResponse, ApiTags } from '@nestjs/swagger';
+import { ApiExcludeEndpoint, ApiOkResponse, ApiTags } from '@nestjs/swagger';
 import { GetHealthQuery } from 'src/handlers/health/get-health/get-health.query';
 import { plainToClass } from 'class-transformer';
 
@@ -10,7 +10,8 @@ export class HealthController {
   constructor(private queryBus: QueryBus) {}
 
   @Get()
-  @ApiOkResponse({ type: 'boolean' })
+  @ApiOkResponse({ type: Boolean })
+  @ApiExcludeEndpoint()
   getHealth(): Promise<number> {
     const query = plainToClass(GetHealthQuery, {});
     return this.queryBus.execute(query);
