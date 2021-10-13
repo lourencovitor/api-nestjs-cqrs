@@ -1,3 +1,4 @@
+import { generateHash } from 'src/utils/auth';
 import {
     Entity,
     PrimaryGeneratedColumn,
@@ -5,6 +6,7 @@ import {
     CreateDateColumn,
     UpdateDateColumn,
     DeleteDateColumn,
+    BeforeInsert,
   } from 'typeorm';
   
   @Entity()
@@ -29,4 +31,9 @@ import {
   
     @DeleteDateColumn()
     deletedAt?: Date;
+
+    @BeforeInsert()
+    async hashPassword() {
+        this.password = await generateHash(this.password);
+    }
   }
