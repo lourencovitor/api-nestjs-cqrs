@@ -9,6 +9,8 @@ import { CreateUsersCommand } from 'src/handlers/users/create-users/create-users
 import { GetUsersByIdQuery } from 'src/handlers/users/get-users-by-id/get-users-by-id.query';
 import { HttpExceptionFilter } from 'src/service/http-exception.filter';
 import { UpdateUsersCommand } from 'src/handlers/users/update-users/update-users.command';
+import { Delete } from '@nestjs/common';
+import { DeleteUsersCommand } from 'src/handlers/users/delete-users/delete-users.command';
 
 @ApiTags('users')
 @Controller('users')
@@ -55,6 +57,17 @@ export class UsersController {
     @Body() createUsersDto: CreateUsersDto
   ): Promise<null> {
     const user = plainToClass(UpdateUsersCommand, {...createUsersDto, userId});
+    return this.commandBus.execute(user);
+  }
+
+  @Delete('/:userId')
+  @ApiOkResponse({ type: null })
+  @ApiParam({ name: 'userId' })
+  @UseFilters(new HttpExceptionFilter())
+  DeleteUser(
+    @Param() userId: string,
+  ): Promise<null> {
+    const user = plainToClass(DeleteUsersCommand, {userId});
     return this.commandBus.execute(user);
   }
 }
