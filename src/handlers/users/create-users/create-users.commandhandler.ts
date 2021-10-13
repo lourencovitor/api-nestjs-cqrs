@@ -3,7 +3,6 @@ import { CommandHandler, ICommandHandler } from '@nestjs/cqrs';
 import { InjectRepository } from '@nestjs/typeorm';
 import { plainToClass } from 'class-transformer';
 import { User } from 'src/model/users.entity';
-import { generateHash } from 'src/utils/auth';
 import { Repository } from 'typeorm';
 import { CreateUsersCommand } from './create-users.command';
 

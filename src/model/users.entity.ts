@@ -7,6 +7,7 @@ import {
     UpdateDateColumn,
     DeleteDateColumn,
     BeforeInsert,
+    BeforeUpdate,
   } from 'typeorm';
   
   @Entity()
@@ -34,6 +35,11 @@ import {
 
     @BeforeInsert()
     async hashPassword() {
+        this.password = await generateHash(this.password);
+    }
+
+    @BeforeUpdate()
+    async hashPasswordUpdate() {
         this.password = await generateHash(this.password);
     }
   }
