@@ -10,7 +10,7 @@ export class HealthController {
   constructor(private queryBus: QueryBus) {}
 
   @Get()
-  @ApiOkResponse({ type: 'boolean' })
+  @ApiOkResponse({ type: Boolean })
   getHealth(): Promise<number> {
     const query = plainToClass(GetHealthQuery, {});
     return this.queryBus.execute(query);

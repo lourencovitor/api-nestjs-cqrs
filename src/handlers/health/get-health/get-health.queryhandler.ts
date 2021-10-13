@@ -6,6 +6,6 @@ export class GetHealthQueryHandler implements IQueryHandler<GetHealthQuery> {
   constructor() {}
 
   async execute(query: GetHealthQuery): Promise<any> {
-    return 1;
+    return true;
   }
 }
