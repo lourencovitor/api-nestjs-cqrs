@@ -7,7 +7,6 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
-import { QueryFailedError } from 'typeorm';
 
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
@@ -30,22 +29,6 @@ export class HttpExceptionFilter implements ExceptionFilter {
       return response.status(status).json({
         message: exception.message,
       });
-    }
-
-    if (exception instanceof QueryFailedError) {
-      let message = '';
-
-      switch ((exception as any).code) {
-        case '23505':
-          message = 'name already in use.';
-          break;
-
-        default:
-          message = (exception as any).detail;
-      }
-
-      this.logger.error(`500 - ${message}`);
-      return response.status(500).json({ message });
     }
 
     this.logger.error(`500 - ${exception.message}`);
