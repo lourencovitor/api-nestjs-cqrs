@@ -7,7 +7,6 @@ import {
   Logger,
 } from '@nestjs/common';
 import { Response } from 'express';
-
 @Catch()
 export class HttpExceptionFilter implements ExceptionFilter {
   private readonly logger = new Logger(HttpExceptionFilter.name);
@@ -22,6 +21,7 @@ export class HttpExceptionFilter implements ExceptionFilter {
         message: (exception as any).response.message,
       });
     }
+
 
     if (exception instanceof HttpException) {
       const status = exception.getStatus();
