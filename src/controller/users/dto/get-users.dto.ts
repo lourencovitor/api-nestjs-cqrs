@@ -13,7 +13,4 @@ export class GetUsersResponseDto {
 
   @ApiProperty({ description: 'Email', example: 'email@example.com' })
   email = '';
-
-  @ApiProperty({ description: 'Password', example: '******' })
-  password = '';
 }
